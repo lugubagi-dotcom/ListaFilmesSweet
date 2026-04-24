@@ -9,9 +9,9 @@ datasource db {
 
 model User {
   id            String       @id @default(uuid()) 
-  username      String       @unique
+  username      String?      @unique
   email         String       @unique
-  password      String
+  password      String?
   full_name     String?
   name          String
   emailVerified Boolean      @default(false)

@@ -6,10 +6,12 @@ import { prisma } from "./prisma.js";
 export const auth = betterAuth({
   // Adapter para o banco de dados
   database: prismaAdapter(prisma, {
-    provider: "postgresql", // ou "mysql", "sqlite", etc.
+    provider: "postgresql", 
   }),
 
-  // Configurações de email (opcional)
+ trustedOrigins: ["http://localhost:3000"],
+
+  
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,

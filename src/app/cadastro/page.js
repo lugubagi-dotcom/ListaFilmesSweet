@@ -16,7 +16,7 @@ export default function Home() {
 
     try {
       const { data, error } = await authClient.signUp.email({
-        email: email, 
+        email: email,
         password: password,
         name: full_name,
       });
@@ -24,6 +24,17 @@ export default function Home() {
       if (error) {
         alert("Erro ao cadastrar: " + error.message);
         return;
+      }
+
+      // Se o cadastro funcionou e o usuário preencheu um username,
+      // salva o username via endpoint separado
+      if (username && data?.user?.id) {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api/user/username`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ userId: data.user.id, username }),
+        });
       }
 
       alert("Cadastro realizado com sucesso! 🎉");
