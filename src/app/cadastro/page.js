@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { authClient } from "../../lib/auth-client";
 
 export default function Home() {
   const [full_name, setFullName] = useState("");
@@ -10,27 +11,26 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async () => {
-    const res = await fetch("http://localhost:3001/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        full_name,
-        username,
-        email,
-        password
-      })
-    });
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-    const data = await res.json();
-    console.log(data);
+    try {
+      const { data, error } = await authClient.signUp.email({
+        email: email, 
+        password: password,
+        name: full_name,
+      });
 
-    if (res.ok) {
-      alert("Cadastro realizado!");
-    } else {
-      alert(data.error);
+      if (error) {
+        alert("Erro ao cadastrar: " + error.message);
+        return;
+      }
+
+      alert("Cadastro realizado com sucesso! 🎉");
+
+    } catch (err) {
+      console.error("Erro inesperado:", err);
+      alert("O servidor não respondeu. Veja o console.");
     }
   };
 
@@ -39,7 +39,7 @@ export default function Home() {
       <header className="header">
         <div className="logo-container">
           <Link href="/">
-            <img src="/logo3.0.png" className="logo"/>
+            <img src="/logo3.0.png" className="logo" alt="Logo"/>
           </Link>
         </div>
         <div className="buttons-container">

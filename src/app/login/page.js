@@ -3,27 +3,31 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { authClient } from "../../lib/auth-client";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    const res = await fetch("http://localhost:3001/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email, password })
-    });
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    const data = await res.json();
-    console.log(data);
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: email,
+        password: password,
+      });
 
-    if (res.ok) {
-      alert("Login realizado!");
-    } else {
-      alert(data.error);
+      if (error) {
+        alert("Erro ao fazer login: " + error.message);
+        return;
+      }
+
+      alert("Login realizado");
+
+    } catch (err) {
+      console.error("Erro inesperado:", err);
+      alert("O servidor não respondeu. Veja o console.");
     }
   };
 
@@ -32,7 +36,7 @@ export default function Home() {
       <header className="header">
         <div className="logo-container">
           <Link href="/">
-            <img src="/logo3.0.png" className="logo"/>
+            <img src="/logo3.0.png" className="logo" alt="Logo WishLy"/>
           </Link>
         </div>
         <div className="buttons-container">
