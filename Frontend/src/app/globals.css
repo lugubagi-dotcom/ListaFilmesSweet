@@ -10,8 +10,8 @@
   --text-main: #F4F1EA; 
   --gold-accent: #D4AF37; 
   --velvet-red: #8B151A; 
-  --background: oklch(1 0 0); 
-  --foreground: oklch(0.145 0 0); 
+  --background: #0A0809;
+  --foreground: #F4F1EA;
   --card: oklch(1 0 0); 
   --card-foreground: oklch(0.145 0 0); 
   --popover: oklch(1 0 0); 
@@ -34,14 +34,14 @@
   --chart-4: oklch(0.371 0 0); 
   --chart-5: oklch(0.269 0 0); 
   --radius: 0.625rem; 
-  --sidebar: oklch(0.985 0 0); 
-  --sidebar-foreground: oklch(0.145 0 0); 
-  --sidebar-primary: oklch(0.205 0 0); 
-  --sidebar-primary-foreground: oklch(0.985 0 0); 
-  --sidebar-accent: oklch(0.97 0 0); 
-  --sidebar-accent-foreground: oklch(0.205 0 0); 
-  --sidebar-border: oklch(0.922 0 0); 
-  --sidebar-ring: oklch(0.708 0 0); 
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: #F4F1EA; 
+  --sidebar-primary: #D4AF37; 
+  --sidebar-primary-foreground: oklch(0.205 0 0); 
+  --sidebar-accent: rgba(212, 175, 55, 0.1); 
+  --sidebar-accent-foreground: #D4AF37; 
+  --sidebar-border: rgba(212, 175, 55, 0.2);
+  --sidebar-ring: #D4AF37; 
 }
 
 @layer base {
@@ -327,6 +327,12 @@ body {
   transition: all 0.3s ease;
 }
 
+.sidebar,
+.sidebar * {
+  background-color: #0b1220 !important;
+  color: #f8fafc !important;
+}
+
 .botao-login:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
@@ -492,4 +498,10 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0); 
   --sidebar-border: oklch(1 0 0 / 10%); 
   --sidebar-ring: oklch(0.556 0 0); 
+}
+
+.sidebar,
+.sidebar * {
+  background-color: #0b1220 !important;
+  color: #f8fafc !important;
 }

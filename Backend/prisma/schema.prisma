@@ -28,11 +28,12 @@ model User {
 }
 
 model Movie {
-  id           BigInt       @id @default(autoincrement())
-  title        String
-  genre        String?
-  release_year Int?
-  created_at   DateTime     @default(now())
+  id          Int      @id @default(autoincrement())
+  title       String
+  year        Int?
+  poster      String?
+  description String?
+  createdAt   DateTime @default(now())
   users        UserMovies[]
 
   @@map("movies")
