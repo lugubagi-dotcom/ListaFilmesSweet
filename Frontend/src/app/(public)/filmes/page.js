@@ -1,7 +1,7 @@
-import FilmCard from '../../../components/FilmCard';
+import FilmCard from '../../../components/filmCard';
 
 export default async function Page() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/api/filmes`, { cache: 'no-store' });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/api/movies`, { cache: 'no-store' });
   const films = await res.json();
 
   return (

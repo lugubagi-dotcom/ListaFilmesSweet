@@ -3,14 +3,14 @@ import * as movieModel from "../models/movies.model.js";
 
 // GET /api/movies
 export async function listar(req, res) {
-  const filmes = await MovieModel.listarFilmes  ();
+  const filmes = await movieModel.listarFilmes  ();
   return res.json(filmes);
 }
 
 // GET /api/movies/:id
 export async function buscar(req, res) {
   const id = req.params.id;
-  const filme = await MovieModel.buscarFilmePorId(id);
+  const filme = await movieModel.buscarFilmePorId(id);
   if (!filme) {
     return res.status(404).json({ error: "Filme não encontrado." });
   }
@@ -25,7 +25,7 @@ export async function criar(req, res) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios." });
   }
 
-  const filme = await MovieModel.criarFilme({
+  const filme = await movieModel.criarFilme({
     title,
     description,
     releaseDate,
@@ -38,12 +38,12 @@ export async function atualizar(req, res) {
   const id = req.params.id;
   const { title, description, releaseDate } = req.body;
 
-  const filme = await MovieModel.buscarFilmePorId(id);
+  const filme = await movieModel.buscarFilmePorId(id);
   if (!filme) {
     return res.status(404).json({ error: "Filme não encontrado." });
   }
 
-  const atualizado = await MovieModel.atualizarFilme(id, {
+  const atualizado = await movieModel.atualizarFilme(id, {
     title,
     description,
     releaseDate,
@@ -55,11 +55,11 @@ export async function atualizar(req, res) {
 export async function deletar(req, res) {
   const id = req.params.id;
 
-  const filme = await MovieModel.buscarFilmePorId(id);
+  const filme = await movieModel.buscarFilmePorId(id);
   if (!filme) {
     return res.status(404).json({ error: "Filme não encontrado." });
   }
 
-  await MovieModel.deletarFilme(id);
+  await movieModel.deletarFilme(id);
   return res.status(204).send();
 }

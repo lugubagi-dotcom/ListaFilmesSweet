@@ -10,7 +10,7 @@ export async function buscarFilmePorId(id) {
 }
 
 export async function criarFilme(data) {
-  return prisma.movies.create({ data });
+  return prisma.movie.create({ data });
 }
 
 export async function atualizarFilme(id, data) {

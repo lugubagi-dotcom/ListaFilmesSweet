@@ -4,12 +4,10 @@ import { toNodeHandler } from 'better-auth/node';
 import { auth } from './src/lib/auth.js';
 import { prisma } from './src/lib/prisma.js';
 import cors from "cors";
-import movieRoutes from './src/routes/movie.routes.js';
-app._use('/api/movies', movieRoutes);
+import { requireAuth } from './src/middleware/auth.js';
+import movieRoutes from './src/routes/movieRoutes.js';
 
 const app = express();
-
-
 const PORT = process.env.PORT || 3001;
 
 app.use(cors({
@@ -23,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', toNodeHandler(auth));
+app.use('/api/movies', movieRoutes);
 
 app.get('/', (req, res) => {
   res.send('Servidor Back-end de Filmes Rodando!');
@@ -35,7 +34,7 @@ app.get('/health', (req, res) => {
 app.get("/api/me", requireAuth, (req, res) => {
   res.json({
     message: "Bem-vindo ao seu perfil!",
-    user: req.user, // Dados vindos do middleware
+    user: req.user,
   });
 });
 
